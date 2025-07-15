@@ -1,0 +1,30 @@
+aws iam create-policy \
+  --policy-name CodeDeploy-EC2-Permissions \
+  --policy-document '{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "s3:Get*",
+          "s3:List*"
+        ],
+        "Resource": [
+          "arn:aws:s3:::aws-codedeploy-*",
+          "arn:aws:s3:::your-application-bucket/*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "codedeploy:RegisterApplicationRevision",
+          "codedeploy:GetApplicationRevision",
+          "codedeploy:CreateDeployment",
+          "codedeploy:GetDeployment",
+          "codedeploy:GetDeploymentConfig",
+          "ec2:DescribeInstances"
+        ],
+        "Resource": "*"
+      }
+    ]
+  }'
